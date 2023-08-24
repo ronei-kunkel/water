@@ -1,0 +1,35 @@
+{
+    "name": "ronei-kunkel/water",
+    "type": "project",
+    "description": "Water é um sistema que tem por finalidade gerenciar a quantidade de vezes que um usuário bebeu água",
+    "require-dev": {
+        "pestphp/pest": "^1.23"
+    },
+    "authors": [
+        {
+            "name": "Ronei Kunkel",
+            "email": "ronei.kunkel@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Water\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "bash": "docker exec -it $(docker ps -q -f name=water_php82) bash",
+        "tests": "docker container exec -it $(docker ps -q -f name=water_php82) sh -c \"php vendor/bin/pest\" -d",
+        "setup": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "composer update",
+            "composer dump-autoload",
+            "docker-compose build",
+            "docker-compose up -d"
+        ]
+    }
+}
