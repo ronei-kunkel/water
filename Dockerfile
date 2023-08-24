@@ -35,36 +35,40 @@ RUN apt-get update \
     locales \
     libonig-dev \
     # nodejs \
-  && apt-get install -y --no-install-recommends \
     libgmp-dev \
+    libsodium-dev \
+    libpcre3-dev \
+    libbz2-dev \
+    libicu-dev \
   && apt-get autoclean -y \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/pear/
 
-RUN docker-php-ext-enable opcache
-RUN docker-php-ext-configure gd
+# comentários para deploy no render.com
 
-RUN docker-php-ext-install -j$(nproc) \
-	opcache \
-  gd \
-  gmp \
-  pdo_mysql \
-  mbstring \
-  pdo \
-  exif \
-  sockets \
-  sodium \
-  apcu \
-  bz2 \
-  intl \
-  pcntl \
-  bcmath \
-  zip
+# RUN docker-php-ext-enable opcache
+# RUN docker-php-ext-install opcache
+# RUN docker-php-ext-install apcu
+
+RUN docker-php-ext-configure gd
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install gmp
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install exif
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-install sodium
+RUN docker-php-ext-install bz2
+RUN docker-php-ext-install intl
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install zip
 
 # Copy files
 COPY . /var/www/water
 
-COPY ./.docker/prod.ini /usr/local/etc/php/local.ini
+COPY ./.docker/php/prod.ini /usr/local/etc/php/local.ini
 
 COPY ./.docker/nginx/prod.conf /etc/nginx/nginx.conf
 
