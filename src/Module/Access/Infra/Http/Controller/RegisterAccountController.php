@@ -2,6 +2,7 @@
 
 namespace Water\Module\Access\Infra\Http\Controller;
 
+use Exception;
 use HttpSoft\Response\JsonResponse;
 use Water\Module\Access\Application\Service\RegisterAccount\RegisterAccountInput;
 use Water\Module\Access\Application\Service\RegisterAccount\RegisterAccountService;
@@ -22,12 +23,15 @@ final class RegisterAccountController implements RequestHandlerInterface
    */
   public function handle(ServerRequestInterface $request): ResponseInterface
   {
+
+    // TODO: Request validator
+
     $data = $request->getParsedBody();
 
     $input = new RegisterAccountInput($data['document'], $data['email'], $data['password']);
 
     $output = $this->service->execute($input);
 
-    return new JsonResponse($output->message);
+    return new JsonResponse($output, $output->code());
   }
 }

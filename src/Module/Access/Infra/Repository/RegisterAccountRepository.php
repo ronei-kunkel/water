@@ -51,7 +51,7 @@ final class RegisterAccountRepository implements Creator
 
         // TODO: disparar ExecutionFailedEvent com a query
 
-        throw new DatabaseExecutionException("Error on executing changes", 0001);
+        throw new DatabaseExecutionException("Error on executing changes", 500);
       }
 
       $commitStatus = $this->connection->commit();
@@ -59,7 +59,7 @@ final class RegisterAccountRepository implements Creator
       if (!$commitStatus) {
         // TODO: disparar CommitFailedEvent com a query
 
-        throw new DatabaseCommitException("Execution changes has been reverted because error on committing executed changes", 0002);
+        throw new DatabaseCommitException("Execution changes has been reverted because error on committing executed changes", 500);
       }
 
     } catch (PDOException $e) {
@@ -69,7 +69,7 @@ final class RegisterAccountRepository implements Creator
 
       // TODO: disparar PDOExceptionEvent com a query e erros
 
-      throw new DatabaseConnectionException("Error on communication with database", 0003, $e->errorInfo, $e);
+      throw new DatabaseConnectionException("Error on communication with database", 500, $e->errorInfo, $e);
     }
 
     return true;
