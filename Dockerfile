@@ -6,7 +6,7 @@ FROM php:8.2-fpm
 # setup user as root
 USER root
 
-WORKDIR /var/www/rib
+WORKDIR /var/www/water
 
 # # setup node js source will be used later to install node js
 # RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
@@ -69,13 +69,13 @@ RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install zip
 
 # Copy files
-COPY . /var/www/rib
+COPY . /var/www/water
 COPY ./.docker/php/prod.ini /usr/local/etc/php/local.ini
 COPY ./.docker/nginx/prod.conf /etc/nginx/nginx.conf
 
-# RUN chmod +rwx /var/www/rib
+# RUN chmod +rwx /var/www/water
 
-# RUN chmod -R 777 /var/www/rib
+# RUN chmod -R 777 /var/www/water
 
 # RUN chgrp -R www-data storage && chgrp -R www-data bootstrap/cache
 RUN chgrp -R www-data storage
@@ -92,7 +92,7 @@ RUN chgrp -R www-data temp
 # setup composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer update --working-dir="/var/www/rib" && composer dump-autoload --working-dir="/var/www/rib"
+RUN composer update --working-dir="/var/www/water" && composer dump-autoload --working-dir="/var/www/water"
 
 EXPOSE 80
 

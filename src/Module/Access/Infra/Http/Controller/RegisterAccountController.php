@@ -2,7 +2,6 @@
 
 namespace Water\Module\Access\Infra\Http\Controller;
 
-use Exception;
 use HttpSoft\Response\JsonResponse;
 use Water\Module\Access\Application\Service\RegisterAccount\RegisterAccountInput;
 use Water\Module\Access\Application\Service\RegisterAccount\RegisterAccountService;
