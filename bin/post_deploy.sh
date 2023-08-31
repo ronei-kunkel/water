@@ -3,7 +3,7 @@
 # update application cache
 # php artisan optimize
 
-chmod -R 777 /../temp
+pwd
 
 # start the application
 php-fpm -D &&  nginx -g "daemon off;"
