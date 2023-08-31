@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Water\Core\Domain\Builder;
-use Water\Core\Domain\Entity\User;
+namespace Module\DrinkManagement\Domain\Builder;
+
+use Module\DrinkManagement\Domain\Entity\User;
 
 final readonly class UserBuilder
 {
