@@ -2,21 +2,24 @@
 
 namespace Water\Module\Access\Domain\Entity;
 
+use Water\Module\Access\Domain\Type\Email;
+use Water\Module\Access\Domain\Type\Password;
+
 final class Account
 {
   public function __construct(
     public readonly string $document,
-    private string $email,
-    private string $password
+    private Email $email,
+    private Password $password
   ) {
   }
 
-  public function email(): string
+  public function email(): Email
   {
     return $this->email;
   }
 
-  public function password(): string
+  public function password(): Password
   {
     return $this->password;
   }
