@@ -14,6 +14,11 @@ final class Account
   ) {
   }
 
+  public function document(): string
+  {
+    return $this->document;
+  }
+
   public function email(): Email
   {
     return $this->email;

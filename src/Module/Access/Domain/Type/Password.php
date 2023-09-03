@@ -3,36 +3,30 @@
 namespace Water\Module\Access\Domain\Type;
 
 use Stringable;
-use Water\Module\Access\Domain\Exception\PasswordException;
 
-final class Password implements Stringable
+abstract class Password implements Stringable
 {
-  public function __construct(
-    private readonly string $value,
-    private readonly bool $raw
-  ) {
-    if ($this->raw)
-      $this->encrypt();
-  }
+  protected const ALGORITHM = PASSWORD_ARGON2ID;
+  protected const ALGORITHM_OPTIONS = [
+    'memory_cost' => PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+    'time_cost'   => PASSWORD_ARGON2_DEFAULT_TIME_COST,
+    'threads'     => PASSWORD_ARGON2_DEFAULT_THREADS,
+  ];
+  protected const MIN_DIGITS = 6;
+  protected readonly string $value;
+  protected bool $raw;
 
   public function __toString(): string
   {
     return $this->value;
   }
 
-  private function encrypt(): void
+  public function algoName(): string
   {
-    if (!$this->raw)
-      throw new PasswordException("Cannot encrypt an encrypted password");
-
-    $this->value = password_hash($this->value, PASSWORD_ARGON2ID);
+    return self::ALGORITHM;
   }
-
-  public function verify(string $password): bool
+  public function options(): array
   {
-    if ($this->raw)
-      throw new PasswordException("Cannot verify both raw password");
-
-    return  password_verify($password, $this->value);
+    return self::ALGORITHM_OPTIONS;
   }
 }

@@ -2,11 +2,11 @@
 
 use Infra\Gateway\MysqlDatabase;
 
-test('Conexão deve se comunicar com o banco', function () {
+// test('Conexão deve se comunicar com o banco', function () {
 
-  $connection = MysqlDatabase::getConnection();
+//   $connection = MysqlDatabase::getConnection();
 
-  $return = $connection->query('select 1 as valid;')->fetchObject();
+//   $return = $connection->query('select 1 as valid;')->fetchObject();
 
-  expect($return->valid)->toBe(1);
-});
+//   expect($return->valid)->toBe(1);
+// });

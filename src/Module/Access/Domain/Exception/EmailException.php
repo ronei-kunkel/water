@@ -2,10 +2,10 @@
 
 namespace Water\Module\Access\Domain\Exception;
 
-use Exception;
+use DomainException;
 use Throwable;
 
-final class EmailException extends Exception
+final class EmailException extends DomainException
 {
   public function __construct($message = "", $code = 0, Throwable $previous = null)
   {

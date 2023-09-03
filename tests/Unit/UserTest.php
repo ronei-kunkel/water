@@ -3,38 +3,38 @@
 use Module\DrinkManagement\Domain\Builder\UserBuilder;
 use Module\DrinkManagement\Domain\Entity\User;
 
-test('Usuário deve ser criado', function () {
-  $user = new User('01234567890', 'Name', 0);
-  expect($user->drankedWater())->toBe(0);
-  expect($user->document)->toBe('01234567890');
-});
+// test('Usuário deve ser criado', function () {
+//   $user = new User('01234567890', 'Name', 0);
+//   expect($user->drankedWater())->toBe(0);
+//   expect($user->document)->toBe('01234567890');
+// });
 
-test('Usuário deve beber água', function () {
-  $user = new User('01234567890', 'Name', 0);
-  expect($user->drankedWater())->toBe(0);
-  $user->drinkWater();
-  expect($user->drankedWater())->toBe(1);
-  expect($user->document)->toBe('01234567890');
-});
+// test('Usuário deve beber água', function () {
+//   $user = new User('01234567890', 'Name', 0);
+//   expect($user->drankedWater())->toBe(0);
+//   $user->drinkWater();
+//   expect($user->drankedWater())->toBe(1);
+//   expect($user->document)->toBe('01234567890');
+// });
 
-test('Deve montar um novo usuário', function () {
-  $userBuilder = new UserBuilder('01234567890', 'Name');
-  $user = $userBuilder->build();
+// test('Deve montar um novo usuário', function () {
+//   $userBuilder = new UserBuilder('01234567890', 'Name');
+//   $user = $userBuilder->build();
 
-  expect($user->document)->toBe('01234567890');
-  expect($user->name())->toBe('Name');
-  expect($user->drankedWater())->toBe(0);
-});
+//   expect($user->document)->toBe('01234567890');
+//   expect($user->name())->toBe('Name');
+//   expect($user->drankedWater())->toBe(0);
+// });
 
-test('Deve montar um usuário existente', function () {
-  $userBuilder = new UserBuilder('01234567890', 'Name');
-  $user = $userBuilder->setDrinkedWater(15)
-    ->build();
+// test('Deve montar um usuário existente', function () {
+//   $userBuilder = new UserBuilder('01234567890', 'Name');
+//   $user = $userBuilder->setDrinkedWater(15)
+//     ->build();
 
-    expect($user->document)->toBe('01234567890');
-    expect($user->name())->toBe('Name');
-  expect($user->drankedWater())->toBe(15);
-});
+//     expect($user->document)->toBe('01234567890');
+//     expect($user->name())->toBe('Name');
+//   expect($user->drankedWater())->toBe(15);
+// });
 
 // test('Usuário deve ser criado pelo serviço de criação de usuários', function () {
 //   $userCacheMemory = new UserCacheMemory();

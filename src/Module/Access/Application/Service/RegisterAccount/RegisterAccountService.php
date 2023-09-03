@@ -8,12 +8,13 @@ use Water\Module\Access\Application\Exception\DatabaseConnectionException;
 use Water\Module\Access\Application\Exception\DatabaseExecutionException;
 use Water\Module\Access\Application\Service\ServiceOutput;
 use Water\Module\Access\Infra\Repository\RegisterAccountRepository;
-use Water\Module\Access\Domain\AccountBuilder;
+use Water\Module\Access\Domain\Builder\AccountBuilder;
 
 final class RegisterAccountService
 {
   public function __construct(
-    private RegisterAccountRepository $repository
+    private RegisterAccountRepository $repository,
+    private AccountBuilder $accountBuilder
   ) {
   }
 
@@ -23,13 +24,13 @@ final class RegisterAccountService
     $status  = false;
     $message = 'Unknown error';
     $code    = 500;
-    // // $event  = null;
+    // $event  = null;
 
     try {
 
-      $builder = new AccountBuilder($input->document);
-      $account = $builder->withEmail($input->email)
-        ->withPassword($input->password)
+      $account = $this->accountBuilder->withDocument($input->document)
+        ->withEmail($input->email)
+        ->withNewPassword($input->password)
         ->build();
 
       // TODO: utilizar fila para criação de usuario? Se sim, UserCreatedEvent e já retorno lá no finally
@@ -39,19 +40,7 @@ final class RegisterAccountService
       $code    = 201;
 
       // TODO: disparo ElementSavedEvent com topic para user
-    } catch (DomainException $e) {
-
-      $status  = false;
-      $message = $e->getMessage();
-      $code    = $e->getCode();
-
-    } catch (DatabaseExecutionException $e) {
-
-      $status  = false;
-      $message = $e->getMessage();
-      $code    = $e->getCode();
-
-    } catch (DatabaseCommitException $e) {
+    } catch (DomainException | DatabaseExecutionException | DatabaseCommitException $e) {
 
       $status  = false;
       $message = $e->getMessage();
