@@ -29,15 +29,6 @@ final class ContentTypeMiddleware implements MiddlewareInterface
 
     $contentType = $request->getHeaderLine('Content-Type');
 
-    if (!in_array($contentType, ['application/json', 'text/html; charset=utf-8', 'text/html'])) {
-      $stream = new Stream();
-      $stream->write(json_encode([
-        'status' => false,
-        'message' => 'Content-Type only accept: \'application/json\', \'text/html; charset=utf-8\', \'text/html\''
-      ]));
-      return new Response(statusCode: 400, body: $stream);
-    }
-
     if ($apiTarget and $contentType !== 'application/json'){
       $stream = new Stream();
       $stream->write(json_encode([
