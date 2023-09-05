@@ -94,6 +94,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN composer update --working-dir="/var/www/water" && composer dump-autoload --working-dir="/var/www/water"
 
+RUN ["chmod", "+x", "bin/ca.php"]
+
+RUN php bin/ca.php
+
 RUN php vendor/bin/phinx migrate -e development
 
 EXPOSE 80
