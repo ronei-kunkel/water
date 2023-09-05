@@ -36,7 +36,7 @@ final class RegisterAccountService
       // TODO: utilizar fila para criação de usuario? Se sim, UserCreatedEvent e já retorno lá no finally
       // Tento persistir ela no banco
       $status  = $this->repository->create($account);
-      $message = 'Account successfuly created';
+      $message = 'Account successfully created';
       $code    = 201;
 
       // TODO: disparo ElementSavedEvent com topic para user
@@ -48,12 +48,13 @@ final class RegisterAccountService
 
     } catch (DatabaseConnectionException $e) {
 
-      $errorInfo    = $e->errorInfo;
-      $errorMessage = $e->getPrevious()->getMessage();
+      $sqlErrorInfo = $e->errorInfo;
+      $sqlMessage   = $e->getPrevious()->getMessage();
+      $sqlCode      = $e->getPrevious()->getCode();
 
       $status  = false;
-      $message = $_ENV['DEBUG'] ? $errorMessage : $e->getMessage();
-      $code    = $e->getCode();
+      $message = 'Account with document ' . $input->document . ' ' . $e->getMappedErrorMessage() ?? $e->getMessage();
+      $code    = $e->getMappedErrorCode() ?? $e->getCode();
 
     }
 
@@ -61,6 +62,6 @@ final class RegisterAccountService
     // TODO: o queueManager é responsável por criar a exchange e a fila caso não existam e as linkar
 
     // retorno o resultado da tentativa de persistir o dado
-    return new ServiceOutput($message, $status, $code);
+    return new ServiceOutput($status, $message, $code);
   }
 }
