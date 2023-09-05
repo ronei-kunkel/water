@@ -7,3 +7,4 @@ vendor
 .phpunit.result.cache
 teste-render
 teste-render.pub
+ca-key.pem

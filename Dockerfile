@@ -80,7 +80,9 @@ COPY ./.docker/nginx/prod.conf /etc/nginx/nginx.conf
 # RUN chgrp -R www-data storage && chgrp -R www-data bootstrap/cache
 RUN chgrp -R www-data storage
 RUN chgrp -R www-data temp
-# RUN chmod 777 ca.pem
+RUN chmod -R 777 storage
+RUN chmod -R 777 temp
+RUN chmod 777 ca.pem
 
 # setup FE
 # RUN npm install
