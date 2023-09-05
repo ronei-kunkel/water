@@ -8,10 +8,13 @@
 
 use Controller\Web\HomeAction;
 use Controller\Web\Doc\DocApiController;
+use Water\Module\Access\Infra\Http\Controller\LogController;
 
 $route->get('/', '', HomeAction::class);
 
 $route->get('/doc/api', '/doc/api', DocApiController::class);
+
+$route->get('/log', '/log', LogController::class);
 
 // $route->group('/user', function (RouteCollector $router) {
 //   $router->get('user.list', '', ListAction::class);
