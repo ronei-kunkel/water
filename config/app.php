@@ -33,7 +33,7 @@ return [
         'username' => $_ENV['DB_USERNAME'],
         'password' => $_ENV['DB_PASSWORD'],
         'options'  => [
-                // PDO::MYSQL_ATTR_SSL_CA       => $_ENV['MYSQL_ATTR_SSL_CA'] ?? '',
+            PDO::MYSQL_ATTR_SSL_CA       => $_ENV['MYSQL_ATTR_SSL_CA'] ?? '',
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
             PDO::ATTR_PERSISTENT         => true
